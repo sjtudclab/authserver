@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.sjtu.se.dclab.server.mapper.UserPublishedGoodsMapper">
+
+	<select id="getPublishedInfoById" parameterType="java.lang.Integer" resultMap="dataResultMap">
+		select * from user_publish_goods where user_id=#{id};
+	</select>
+	
+	<select id="getGoodsByStage" parameterType="java.lang.String" resultMap="dataResultMap">
+		select * from user_publish_goods where stage=#{stage};
+	</select>
+	
+	<insert id="createPublishedGoods" parameterType="UserPublishedGoods">
+		insert into user_publish_goods (user_id,goods_id,stage) 
+			values (#{userID},#{goodsID},#{stage});
+		<selectKey resultType="int">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+	
+	<update id="updateGoodsStage" parameterType="UserPublishedGoods">
+		update user_publish_goods set stage = #{stage} where goods_id = #{goodsID};
+	</update>
+	
+	
+
+	<resultMap type="UserPublishedGoods" id="dataResultMap">
+		<id property="userID" column="user_id" />
+		<result property="goodsID" column="goods_id" />
+		<result property="stage" column="stage" />
+	</resultMap>
+	
+</mapper>

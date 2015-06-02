@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.sjtu.se.dclab.server.mapper.FsrelationMapper" >
+
+  <select id="getFsrelationByActp" resultMap="FsrelationResultMap" >
+    select * from fsrelation where actp=#{actp};
+  </select>
+    <select id="getFsrelationByPassp" resultMap="FsrelationResultMap" >
+    select * from fsrelation where passp=#{passp};
+  </select>
+  <delete id="deleteFsrelationById" parameterType="java.lang.Integer" >
+    delete from fsrelation where id = #{id}
+  </delete>
+  <insert id="createFsrelation" parameterType="Fsrelation" >
+    insert into fsrelation (actp, passp)
+    values (#{actp}, #{passp});
+  </insert>
+  <update id="updateFsrelationById" parameterType="Fsrelation" >
+    update fsrelation
+    set actp = #{actp},
+      passp = #{passp}
+    where id = #{id}
+  </update>
+    <resultMap id="FsrelationResultMap" type="Fsrelation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="actp" property="actp" />
+    <result column="passp" property="passp" />
+  </resultMap>
+</mapper>

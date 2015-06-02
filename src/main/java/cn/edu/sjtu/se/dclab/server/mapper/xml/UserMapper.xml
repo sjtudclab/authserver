@@ -1,0 +1,66 @@
+<?mybatis version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.sjtu.se.dclab.server.mapper.UserMapper">
+
+    <select id="findByUserName" resultMap="UserMap">
+        SELECT * FROM user
+        WHERE username = #{username}
+    </select>
+    
+    <select id="findAll" resultMap="UserMap">
+    	SELECT * FROM user;
+    </select>
+
+    <select id="findByUserId" resultMap="UserMap">
+        SELECT * FROM user u LEFT JOIN user_type ut ON u.user_type_id = ut.user_type_id WHERE u.user_id = #{id}
+    </select>
+    
+    <select id="findUserByApartmentId" parameterType="long" resultMap="UserMap">
+        SELECT id, username, password, identification, image_url
+        FROM user
+        WHERE apartment_id = #{id}
+    </select>
+    
+    <delete id="deleteUserRole" parameterType="long">    
+    	DELETE FROM user_role WHERE user_id = #{userId};
+    </delete>
+    
+    <insert id="insertUserRole" parameterType="long">
+    	INSERT INTO user_role (user_id,role_id) VALUES (#{userId},#{roleId});
+    </insert>
+
+    <select id="findByCardInfo" resultMap="UserMap">
+        SELECT u.* FROM user as u, ${tableName} as c
+        WHERE c.identification_type = #{cardType} AND c.identification_value = #{cardNumber} AND c.user_id = u.user_id
+    </select>
+    
+    <update id="update" parameterType="User">
+    	UPDATE user SET password = #{password}, image = #{image}, 
+    	name = #{name}, email = #{email}, identity_number = #{identityNumber}
+		WHERE user_id = #{id};    	
+    </update>
+
+    <resultMap id="UserMap" type="User">
+        <id property="id" column="user_id" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="salt" column="salt" />
+        <result property="name" column="name" />
+        <result property="status" column="status" />
+        <result property="note" column="note" />
+        <result property="email" column="email" />
+        <result property="enabled" column="enabled" />
+        <result property="image" column="image" />
+        <result property="identityNumber" column="identity_number" />
+        
+        <association property="userType" resultMap="UserTypeMap" />
+    </resultMap>
+    
+    <resultMap type="UserType" id="UserTypeMap">
+    	<id property="id" column="user_type_id" />
+    	<result property="type" column="type" />
+    	<result property="tableName" column="table_name" />
+    </resultMap>
+</mapper>
