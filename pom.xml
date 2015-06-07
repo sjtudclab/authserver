@@ -204,7 +204,12 @@
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.4.3</version>
 		</dependency>
-
+		
+		<dependency>
+			<groupId>cn.edu.sjtu.se.dclab</groupId>
+			<artifactId>service-management</artifactId>
+			<version>0.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
