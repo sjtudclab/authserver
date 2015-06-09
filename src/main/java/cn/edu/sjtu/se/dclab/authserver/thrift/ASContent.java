@@ -26,7 +26,7 @@ public class ASContent extends Content {
 		this.port = port;
 	}
 	
-	@Override
+	
 	public String getStr() {
 		return ip + "," + port;
 	}

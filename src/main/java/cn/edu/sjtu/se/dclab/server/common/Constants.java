@@ -1,16 +1,16 @@
 package cn.edu.sjtu.se.dclab.server.common;
 /**
- *2015Äê3ÔÂ26ÈÕ ÏÂÎç3:42:10
+ *2015ï¿½ï¿½3ï¿½ï¿½26ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½3:42:10
  *@author changyi yuan
  */
 public class Constants {
 	public final static String BASIC = "basic";
 	public final static String REST = "rest";
 	
-	public final static String ROLE_COMMITTEE = "¾ÓÎ¯»á";
-	public final static String ROLE_OWNER = "ÒµÎ¯»á";
-	public final static String ROLE_TENEMENT = "ÎïÒµ";
-	public final static String ROLE_BLOCKLEADER = "¿é³¤";
+	public final static String ROLE_COMMITTEE = "å±…å§”ä¼š";
+	public final static String ROLE_OWNER = "ä¸šå§”ä¼š";
+	public final static String ROLE_TENEMENT = "ç‰©ä¸š";
+	public final static String ROLE_BLOCKLEADER = "å—é•¿";
 	
 	public final static String USER_TYPE_MANAGEMENT = "management";
 	public final static String USER_TYPE_SERVICE = "service";
@@ -29,7 +29,7 @@ public class Constants {
 	public final static int INFORMATION_UNDO_STATUS = 0;
 	public final static int INFORMATION_DONE_STATUS = 1;
 	
-	public final static String IDENTIFICATION_TYPE_ID = "¾ÓÃñÉí·İÖ¤";
+	public final static String IDENTIFICATION_TYPE_ID = "å±…æ°‘èº«ä»½è¯";
 	
 	public final static String MESSAGE_FORWARD = "forward";
 	public final static String MESSAGE_BACK = "back";

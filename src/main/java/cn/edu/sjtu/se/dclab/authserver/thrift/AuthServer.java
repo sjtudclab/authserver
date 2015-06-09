@@ -16,6 +16,7 @@ public class AuthServer {
 	private ClassPathXmlApplicationContext context;
 	private int port;
 	private String nodeName;
+	private TServer server;
 
 	public ClassPathXmlApplicationContext getContext() {
 		return context;
@@ -47,13 +48,14 @@ public class AuthServer {
 		AuthService authService = context.getBean(AuthService.class);
 		ServiceManager manager = ServiceManager.getInstance();
 
-		TServer server = null;
+		server = null;
 		try {
+			// register zookeeper node
 			String localIp = InetAddress.getLocalHost().getHostAddress();
 			Content content = new ASContent(localIp, port);
-
 			manager.registe(nodeName, content, null, null);
 
+			// start a server
 			TServerSocket serverTransport = new TServerSocket(port);
 			Auth.Processor<AuthService> processor = new Auth.Processor<AuthService>(authService);
 			server = new TThreadPoolServer(new TThreadPoolServer.Args(
@@ -71,11 +73,16 @@ public class AuthServer {
 		
 	}
 	
+	public void stopServer() {
+		server.stop();
+	}
+	
 	public void removeZkNode() {
 		ServiceManager manager = ServiceManager.getInstance();
 		manager.remove(nodeName);
 	}
 	
+	/*
 	public static void main(String[] args) {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		int port = 7911;
@@ -85,5 +92,5 @@ public class AuthServer {
 		authServer.startServer();
 		
 	}
-
+	*/
 }

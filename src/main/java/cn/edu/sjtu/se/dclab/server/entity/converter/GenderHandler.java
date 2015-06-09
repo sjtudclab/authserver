@@ -13,8 +13,8 @@ import java.sql.SQLException;
  */
 public class GenderHandler extends BaseTypeHandler<String> {
 
-    private static final String MAN = "ÄÐ";
-    private static final String WOMEN = "Å®";
+    private static final String MAN = "ç”·";
+    private static final String WOMEN = "å¥³";
 
     @Override
     public void setNonNullParameter(PreparedStatement preparedStatement, int i, String s, JdbcType jdbcType) throws SQLException {
