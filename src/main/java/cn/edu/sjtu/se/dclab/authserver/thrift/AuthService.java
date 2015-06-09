@@ -8,6 +8,8 @@ import java.util.Map;
 import org.apache.thrift.TException;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,7 @@ import cn.edu.sjtu.se.dclab.server.transfer.UserTransfer;
 
 @Service
 public class AuthService implements Auth.Iface {
-	
+	private Logger logger = LoggerFactory.getLogger(AuthService.class);
 	@Autowired
 	private UserService userService; 
 	
@@ -79,6 +81,7 @@ public class AuthService implements Auth.Iface {
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
+			logger.info(e.getMessage());
 			return false;
 		}
 		

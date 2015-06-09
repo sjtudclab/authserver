@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import org.apache.thrift.server.*;
 import org.apache.thrift.transport.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +17,7 @@ import cn.edu.sjtu.se.dclab.service_management.ServiceManager;
 
 public class AuthServer {
 	
+	private Logger logger = LoggerFactory.getLogger(AuthServer.class);
 	private ClassPathXmlApplicationContext context;
 	private int port;
 	private String nodeName;
@@ -47,6 +50,8 @@ public class AuthServer {
 	}
 		
 	public void startServer() {
+		logger.info("startServer()");
+		
 		AuthService authService = context.getBean(AuthService.class);
 		ServiceManager manager = ServiceManager.getInstance();
 
@@ -57,16 +62,18 @@ public class AuthServer {
 			Content content = new ASContent(localIp, port);
 			String childName = UUID.randomUUID().toString().replace("-", "");
 			manager.registe(nodeName, childName, content, null, null);
-
+			logger.info("register node done");
+			
 			// start a server
 			TServerSocket serverTransport = new TServerSocket(port);
 			Auth.Processor<AuthService> processor = new Auth.Processor<AuthService>(authService);
 			server = new TThreadPoolServer(new TThreadPoolServer.Args(
 					serverTransport).processor(processor));
-			System.out.println("Starting server on port " + port + " ...");
+			logger.info("Starting server on port " + port + " ...");
 			server.serve();
+			
 		} catch (TTransportException e) {
-			e.printStackTrace();
+			logger.info(e.getMessage());
 			manager.remove(nodeName);
 			return;
 		}
