@@ -5,6 +5,8 @@ import org.apache.commons.daemon.DaemonContext;
 import org.apache.commons.daemon.DaemonInitException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import cn.edu.sjtu.se.dclab.authserver.utils.Constants;
+
 public class AuthDaemon implements Daemon {
 	private ClassPathXmlApplicationContext ctx;
 	private AuthServer authServer;
@@ -17,15 +19,17 @@ public class AuthDaemon implements Daemon {
 	@Override
 	public void init(DaemonContext arg0) throws DaemonInitException, Exception {
 		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+        String confDir = System.getenv("CONF_DIR");
+		Constants.init(confDir + "/application.properties");
 	}
 
 	@Override
 	public void start() throws Exception {
 		// TODO Auto-generated method stub
-		int port = 7911;
-		String nodeName = "/authService";
+		int port = Constants.THRIFT_SERVER_PORT;
+		String nodeName = Constants.THRIFT_SERVER_ROOTNAME;
 		
-		authServer = new AuthServer(ctx, port, nodeName);
+		authServer = new AuthServer(ctx);
 		authServer.removeZkNode();
 		authServer.startServer();
 	}
