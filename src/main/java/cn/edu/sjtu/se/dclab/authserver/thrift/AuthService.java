@@ -106,5 +106,18 @@ public class AuthService implements Auth.Iface {
             result.put(key, value); 
         } 
         return result; 
-    } 
+    }
+
+	@Override
+	public boolean deviceTrustable(String dtToken) throws TException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String verifyDevice(String publicKey, String encryptedString,
+			String trueString) throws TException {
+		// TODO Auto-generated method stub
+		return "token";
+	} 
 }

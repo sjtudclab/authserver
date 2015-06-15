@@ -6,3 +6,5 @@ target/
 .idea/
 community-server.iml
 /bin/
+*.log
+*.log.gz
