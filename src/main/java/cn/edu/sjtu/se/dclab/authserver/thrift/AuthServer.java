@@ -1,5 +1,6 @@
 package cn.edu.sjtu.se.dclab.authserver.thrift;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.UUID;
@@ -9,6 +10,7 @@ import org.apache.thrift.transport.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import cn.edu.sjtu.se.dclab.authserver.utils.Constants;
@@ -90,14 +92,22 @@ public class AuthServer {
 	}
 	
 	/*
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-		int port = 7911;
-		String nodeName = "/authService";
-		AuthServer authServer = new AuthServer(ctx, port, nodeName);
-		authServer.removeZkNode();
+//		Resource resource = ctx.getResource("classpath:application.properties");
+
+		Constants.init("E:\\workspace\\authserver\\src\\test\\resources\\application.properties");
+
+
+		AuthServer authServer = new AuthServer(ctx);
+		try {
+			authServer.removeZkNode();
+		} catch (RuntimeException ex) {
+			// Normal case
+			ex.printStackTrace();
+		}
 		authServer.startServer();
 		
-	}
-	*/
+	}*/
+	
 }
